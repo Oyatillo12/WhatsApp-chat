@@ -34,7 +34,7 @@ export const Login: React.FC<LoginProps> = ({ idInstance, apiTokenInstance, onLo
 
     return (
         <div className="space-y-4">
-            <h1 className="text-xl font-bold">Login</h1>
+            <h2 className="text-xl font-bold">Login</h2>
             <input
                 type="text"
                 placeholder="idInstance"
