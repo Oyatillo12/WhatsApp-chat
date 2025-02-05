@@ -25,7 +25,7 @@ export const Chat: React.FC<ChatProps> = ({ idInstance, apiTokenInstance }) => {
                 chatId: `${formattedPhoneNumber}@c.us`,
                 message,
             }
-            await useAxios().post(`/waInstance${idInstance}/SendMessage/${apiTokenInstance}`, data);
+            await useAxios().post(`/waInstance${idInstance}/sendMessage/${apiTokenInstance}`, data);
             setMessages([...messages, { from: "me", text: message }]);
             setMessage("");
         } catch (error) {
@@ -35,7 +35,7 @@ export const Chat: React.FC<ChatProps> = ({ idInstance, apiTokenInstance }) => {
 
     const fetchMessages = async () => {
         try {
-            const response = await useAxios().get( `/waInstance${idInstance}/ReceiveNotification/${apiTokenInstance}`);
+            const response = await useAxios().get(`/waInstance${idInstance}/receiveNotification/${apiTokenInstance}`);
             if (response.data && response.data.body) {
                 const { senderData, messageData } = response.data.body;
                 if (senderData && messageData) {
@@ -44,7 +44,7 @@ export const Chat: React.FC<ChatProps> = ({ idInstance, apiTokenInstance }) => {
                         { from: senderData.senderName, text: messageData.textMessageData.text },
                     ]);
                 }
-                await useAxios().delete(`/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${response.data.receiptId}`);
+                await useAxios().delete(`/waInstance${idInstance}/deleteNotification/${apiTokenInstance}/${response.data.receiptId}`);
             }
         } catch (error) {
             console.error("Error fetching messages:", error);
